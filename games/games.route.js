@@ -4,8 +4,8 @@ const games = [];
 
 router.post('/', (req, res) => {
   if (req.body && req.body.title && req.body.genre) {
-    res.status(201).json({ message: 'Game added' });
     games.push(req.body);
+    res.status(201).json({ message: 'Game added' });
   } else {
     res.status(422).json({ message: 'Title and Genre are required' });
   }
