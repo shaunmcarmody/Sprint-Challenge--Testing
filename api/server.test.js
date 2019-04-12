@@ -53,4 +53,36 @@ describe('Games', () => {
       expect(res.body).toHaveLength(2);
     });
   });
+
+  describe('GET /:id', () => {
+    it('should respond with 200 OK and return JSON response', async () => {
+      const res = await request(server).get('/1');
+      expect(res.status).toBe(200);
+      expect(res.type).toBe('application/json');
+      expect(res.body).toBeTruthy();
+    });
+
+    it('should respond with 404 and return JSON response', async () => {
+      const res = await request(server).get('/3');
+      expect(res.status).toBe(404);
+      expect(res.type).toBe('application/json');
+      expect(res.body).toEqual({ message: 'No Game Found' });
+    });
+  });
+
+  describe('DELETE /:id', () => {
+    it('should respond with 202 and the response should contain an array with a length of 1', async () => {
+      const res = await request(server).delete('/1');
+      expect(res.status).toBe(202);
+      expect(res.type).toBe('application/json');
+      expect(res.body).toHaveLength(1);
+    });
+
+    it('should respond with 404 and return JSON response', async () => {
+      const res = await request(server).get('/3');
+      expect(res.status).toBe(404);
+      expect(res.type).toBe('application/json');
+      expect(res.body).toEqual({ message: 'No Game Found' });
+    });
+  });
 })
